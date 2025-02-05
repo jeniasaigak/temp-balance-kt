@@ -1,16 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.0"
-    java
     `maven-publish`
-}
-
-group = "com.github.jitpack"
-version = "2.0"
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(8)) // Java 8
-    withSourcesJar()
-    withJavadocJar()
 }
 
 repositories {
@@ -18,18 +8,21 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.guava:guava:29.0-jre")
+    implementation(kotlin("stdlib"))
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+            groupId = "com.github.jeniasaigak"
+            artifactId = "temp-balance-kt"
+            version = "0.1.0"
         }
     }
-}
-
-tasks.wrapper {
-    gradleVersion = "7.3.3"
-    distributionType = Wrapper.DistributionType.ALL
 }
